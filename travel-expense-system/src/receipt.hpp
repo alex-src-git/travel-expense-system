@@ -1,6 +1,8 @@
 #pragma once
 #include "claim.hpp"
+#include "receipt-config.hpp"
 #include <ctime>
+#include <memory>
 
 struct Receipt final
 {
@@ -14,3 +16,5 @@ struct Receipt final
     Money costTotalEmployerTravel = 0.0;
     Money costRebateEmployer = 0.0;
 };
+
+std::unique_ptr<Receipt> makeReceipt(const ClaimInput& claim, const ReceiptConfig& cfg);
