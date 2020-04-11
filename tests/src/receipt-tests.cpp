@@ -2,7 +2,7 @@
 #include <catch2/catch.hpp>
 #include <memory>
 
-TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValues", "[Receipt]")
+TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithSpecificationConfig", "[Receipt]")
 {
     auto claim = std::unique_ptr<ClaimInput>(new ClaimInput
     {
@@ -29,5 +29,35 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValues", "[Receipt]")
     REQUIRE(receipt->costTotalEmployerExpenses == 50);
     REQUIRE(receipt->costTotalEmployeeTravel == 0);
     REQUIRE(receipt->costTotalEmployerTravel == 1000);
+    REQUIRE(receipt->costRebateEmployer == 240);
+}
+
+TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithComplexConfig", "[Receipt]")
+{
+    auto claim = std::unique_ptr<ClaimInput>(new ClaimInput
+    {
+        .reason = ClaimReason::TravelAndExpenses,
+        .costOfTravel = 1000.0,
+        .costOfExpenses = 200.0
+    });
+
+    auto cfg = std::unique_ptr<ReceiptConfig>(new ReceiptConfig
+    {
+        .pctTravelEmployee = 0.5,
+        .pctExpensesEmployee = 1.0,
+        .bandTravelEmployee = 200,
+        .bandExpensesEmployee = 50.0,
+        .rebateEmployer = 0.2
+    });
+
+    std::unique_ptr<Receipt> receipt = makeReceipt(*claim, *cfg);
+
+    REQUIRE(receipt->costTotal == 1200.0);
+    REQUIRE(receipt->costTotalEmployer == 650);
+    REQUIRE(receipt->costTotalEmployee == 550);
+    REQUIRE(receipt->costTotalEmployeeExpenses == 150);
+    REQUIRE(receipt->costTotalEmployerExpenses == 50);
+    REQUIRE(receipt->costTotalEmployeeTravel == 400);
+    REQUIRE(receipt->costTotalEmployerTravel == 600);
     REQUIRE(receipt->costRebateEmployer == 240);
 }
