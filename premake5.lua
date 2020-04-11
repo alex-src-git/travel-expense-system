@@ -1,0 +1,17 @@
+TARGET_DIR = "%{prj.location}/bin/%{cfg.system}/%{cfg.buildcfg}"
+OBJECT_DIR = TARGET_DIR .. "/obj"
+
+workspace "travel-expense-system"
+    architecture "x64"
+    configurations { "debug", "release" }
+
+project "travel-expense-system"
+    location "travel-expense-system"
+    systemversion "latest"
+    cppdialect "C++17"
+    staticruntime "Off"
+    kind "ConsoleApp"
+    targetdir (TARGET_DIR)
+    objdir (OBJECT_DIR)
+    filter "system:windows"
+    defines { "TES_PLATFORM_WINDOWS" }
