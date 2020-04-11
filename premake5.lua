@@ -19,3 +19,21 @@ project "travel-expense-system"
         "%{prj.name}/src/**.hpp",
         "%{prj.name}/src/**.cpp",
     }
+
+project "tests"
+    location "tests"
+    systemversion "latest"
+    cppdialect "C++latest"
+    staticruntime "Off"
+    kind "ConsoleApp"
+    targetdir (TARGET_DIR)
+    objdir (OBJECT_DIR)
+    files
+    {
+        "%{prj.name}/src/**.hpp",
+        "%{prj.name}/src/**.cpp"
+    }
+    includedirs
+    {
+        "travel-expense-system/src",
+    }
