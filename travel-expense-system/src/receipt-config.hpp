@@ -2,8 +2,8 @@
 
 struct ReceiptConfig final
 {
-    double pctTravelEmployee = 1.0;
-    double pctExpensesEmployee = 0;
+    double pctTravelEmployee = 0;
+    double pctExpensesEmployee = 1;
     double bandTravelEmployee = 0;
     double bandExpensesEmployee = 50;
     double rebateEmployer = 0.2;
