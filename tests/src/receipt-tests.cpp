@@ -25,10 +25,10 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithSpecificationConfig", 
     REQUIRE(receipt->costTotal == 1200.0);
     REQUIRE(receipt->costTotalEmployer == 1050);
     REQUIRE(receipt->costTotalEmployee == 150);
-    REQUIRE(receipt->costTotalEmployeeExpenses == 150);
-    REQUIRE(receipt->costTotalEmployerExpenses == 50);
-    REQUIRE(receipt->costTotalEmployeeTravel == 0);
-    REQUIRE(receipt->costTotalEmployerTravel == 1000);
+    REQUIRE(receipt->costEmployeeExpenses == 150);
+    REQUIRE(receipt->costEmployerExpenses == 50);
+    REQUIRE(receipt->costEmployeeTravel == 0);
+    REQUIRE(receipt->costEmployerTravel == 1000);
     REQUIRE(receipt->costRebateEmployer == 240);
 }
 
@@ -55,9 +55,9 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithComplexConfig", "[Rece
     REQUIRE(receipt->costTotal == 1200.0);
     REQUIRE(receipt->costTotalEmployer == 650);
     REQUIRE(receipt->costTotalEmployee == 550);
-    REQUIRE(receipt->costTotalEmployeeExpenses == 150);
-    REQUIRE(receipt->costTotalEmployerExpenses == 50);
-    REQUIRE(receipt->costTotalEmployeeTravel == 400);
-    REQUIRE(receipt->costTotalEmployerTravel == 600);
+    REQUIRE(receipt->costEmployeeExpenses == 150);
+    REQUIRE(receipt->costEmployerExpenses == 50);
+    REQUIRE(receipt->costEmployeeTravel == 400);
+    REQUIRE(receipt->costEmployerTravel == 600);
     REQUIRE(receipt->costRebateEmployer == 240);
 }

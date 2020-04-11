@@ -7,6 +7,7 @@ enum class ClaimReason : int
     Travel,
     TravelAndExpenses
 };
+
 constexpr int ClaimReasonValueCount = 2;
 
 struct ClaimInput final

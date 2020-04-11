@@ -82,10 +82,10 @@ makeReceipt(const ClaimInput& claim, const ReceiptConfig& cfg)
         .costTotal = totalCost(claim, cfg),
         .costTotalEmployer = totalCostEmployer(claim, cfg),
         .costTotalEmployee = totalCostEmployee(claim, cfg),
-        .costTotalEmployeeExpenses = totalCostEmployeeExpenses(claim, cfg),
-        .costTotalEmployerExpenses = totalCostEmployerExpenses(claim, cfg),
-        .costTotalEmployeeTravel = totalCostEmployeeTravel(claim, cfg),
-        .costTotalEmployerTravel = totalCostEmployerTravel(claim, cfg),
+        .costEmployeeExpenses = totalCostEmployeeExpenses(claim, cfg),
+        .costEmployerExpenses = totalCostEmployerExpenses(claim, cfg),
+        .costEmployeeTravel = totalCostEmployeeTravel(claim, cfg),
+        .costEmployerTravel = totalCostEmployerTravel(claim, cfg),
         .costRebateEmployer = costRebateEmployer(claim, cfg)
     });
 }

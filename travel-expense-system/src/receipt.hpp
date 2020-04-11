@@ -10,10 +10,10 @@ struct Receipt final
     Money costTotal = 0.0; 
     Money costTotalEmployer = 0.0;
     Money costTotalEmployee = 0.0;
-    Money costTotalEmployeeExpenses = 0.0;
-    Money costTotalEmployerExpenses = 0.0;
-    Money costTotalEmployeeTravel = 0.0;
-    Money costTotalEmployerTravel = 0.0;
+    Money costEmployeeExpenses = 0.0;
+    Money costEmployerExpenses = 0.0;
+    Money costEmployeeTravel = 0.0;
+    Money costEmployerTravel = 0.0;
     Money costRebateEmployer = 0.0;
 };
 
