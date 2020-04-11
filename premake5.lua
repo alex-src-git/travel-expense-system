@@ -37,4 +37,13 @@ project "tests"
     {
         "travel-expense-system/src",
         "%{prj.name}/thirdparty"
+    }   
+    links
+    {
+        -- .obj files that we want to test.
+        "receipt.obj"
+    }
+    libdirs
+    {
+        "travel-expense-system/bin/%{cfg.system}/%{cfg.buildcfg}/obj"
     }
