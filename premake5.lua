@@ -8,10 +8,10 @@ workspace "travel-expense-system"
 project "travel-expense-system"
     location "travel-expense-system"
     systemversion "latest"
-    cppdialect "C++17"
+    cppdialect "C++latest"
     staticruntime "Off"
     kind "ConsoleApp"
     targetdir (TARGET_DIR)
     objdir (OBJECT_DIR)
     filter "system:windows"
-    defines { "TES_PLATFORM_WINDOWS" }
+    includedirs { "src" }
