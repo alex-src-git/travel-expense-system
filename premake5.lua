@@ -30,9 +30,11 @@ project "tests"
     files
     {
         "%{prj.name}/src/**.hpp",
-        "%{prj.name}/src/**.cpp"
+        "%{prj.name}/src/**.cpp",
+        "%{prj.name}/thirdparty/**.hpp"
     }
     includedirs
     {
         "travel-expense-system/src",
+        "%{prj.name}/thirdparty"
     }
