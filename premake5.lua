@@ -13,5 +13,4 @@ project "travel-expense-system"
     kind "ConsoleApp"
     targetdir (TARGET_DIR)
     objdir (OBJECT_DIR)
-    filter "system:windows"
-    includedirs { "src" }
+    files { "**.cpp", "**.hpp" }
