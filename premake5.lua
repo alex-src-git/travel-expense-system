@@ -5,7 +5,6 @@ workspace "travel-expense-system"
     architecture "x64"
     configurations { "debug", "release" }
 
-
 project "travel-expense-system"
     location "travel-expense-system"
     systemversion "latest"
