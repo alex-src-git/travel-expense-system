@@ -5,6 +5,7 @@ workspace "travel-expense-system"
     architecture "x64"
     configurations { "debug", "release" }
 
+
 project "travel-expense-system"
     location "travel-expense-system"
     systemversion "latest"
@@ -13,4 +14,8 @@ project "travel-expense-system"
     kind "ConsoleApp"
     targetdir (TARGET_DIR)
     objdir (OBJECT_DIR)
-    files { "**.cpp", "**.hpp" }
+    files
+    {
+        "%{prj.name}/src/**.hpp",
+        "%{prj.name}/src/**.cpp",
+    }
