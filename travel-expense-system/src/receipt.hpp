@@ -11,8 +11,10 @@ public:
     Receipt(const ClaimInput& claim);
     Receipt(const ClaimInput& claim, const ReceiptConfig& receiptConfig);
 
+    std::size_t getId() const;
     std::time_t getTimeCreated() const;
     std::string getTimeCreatedAsUtcString() const;
+    std::string getCurrencyCode() const;
 
     Money getExpensesCost() const;
     Money getExpensesCostForEmployee() const;
@@ -27,6 +29,9 @@ public:
     Money getTotalCostForEmployer() const;
 
 private:
+    void assignId();
+
+    std::size_t id;
     std::time_t timeCreated;
     ReceiptConfig cfg;
     Money expenses;

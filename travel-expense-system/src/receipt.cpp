@@ -1,5 +1,6 @@
 #include "receipt.hpp"
 #include <iostream>
+#include <algorithm>
 
 Receipt::Receipt(const ClaimInput& claim) : Receipt(claim, {})
 {
@@ -11,6 +12,12 @@ Receipt::Receipt(const ClaimInput & claim, const ReceiptConfig & receiptConfig) 
     expenses(claim.costOfExpenses),
     travel(claim.costOfTravel)
 {
+    assignId();
+}
+
+std::size_t Receipt::getId() const
+{
+    return id;
 }
 
 std::time_t Receipt::getTimeCreated() const
@@ -21,10 +28,19 @@ std::time_t Receipt::getTimeCreated() const
 std::string Receipt::getTimeCreatedAsUtcString() const
 {
     #pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
+
     tm* time = std::gmtime(&timeCreated);
-    char* timeAsCString = std::asctime(time);
-    return std::string(timeAsCString);
+    std::string str(std::asctime(time));
+    str.erase(std::remove(str.begin(), str.end(), '\n'), str.end());
+    str += " (UTC)";
+    return str;
+
     #pragma warning(default : 4996)
+}
+
+std::string Receipt::getCurrencyCode() const
+{
+    return std::string(cfg.currency);
 }
 
 Money Receipt::getExpensesCost() const
@@ -76,12 +92,20 @@ Money Receipt::getTotalCostForEmployer() const
     return getTravelCostForEmployer() + getExpensesCostForEmployer();
 }
 
+void Receipt::assignId()
+{
+    std::string timeString = getTimeCreatedAsUtcString();
+    id = std::hash<std::string >{}(timeString);
+}
+
 // TODO: Print as a table.
 std::ostream& operator << (std::ostream& os, const Receipt& receipt)
 {
+    os << "\nID Hash  : " << std::hex << receipt.getId();
     os << "\nCreated  : " << receipt.getTimeCreatedAsUtcString();
+    os << "\nCurrency : " << receipt.getCurrencyCode();
 
-    os << "\nTotal    : " << receipt.getTotalCost();
+    os << "\n\nTotal    : " << receipt.getTotalCost();
     os << "\nEmployee : " << receipt.getTotalCostForEmployee();
     os << "\nEmployer : " << receipt.getTotalCostForEmployer();
 
