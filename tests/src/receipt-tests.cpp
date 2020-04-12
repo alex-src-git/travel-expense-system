@@ -15,8 +15,7 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithSpecificationConfig", 
         .pctTravelEmployee = 0.0,
         .pctExpensesEmployee = 1.0,
         .bandTravelEmployee = 0.0,
-        .bandExpensesEmployee = 50.0,
-        .rebateEmployer = 0.2
+        .bandExpensesEmployee = 50.0
     };
 
     Receipt receipt = Receipt(claim, cfg);
@@ -48,8 +47,7 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithComplexConfig", "[Rece
         .pctTravelEmployee = 0.5,
         .pctExpensesEmployee = 1.0,
         .bandTravelEmployee = 200,
-        .bandExpensesEmployee = 50.0,
-        .rebateEmployer = 0.2
+        .bandExpensesEmployee = 50.0
     };
 
     Receipt receipt = Receipt(claim, cfg);
