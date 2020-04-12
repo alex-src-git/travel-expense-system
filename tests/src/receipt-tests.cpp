@@ -27,8 +27,10 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithSpecificationConfig", 
     REQUIRE(receipt->costTotalEmployee == 150);
     REQUIRE(receipt->costEmployeeExpenses == 150);
     REQUIRE(receipt->costEmployerExpenses == 50);
+    REQUIRE(receipt->costTotalExpenses == 200);
     REQUIRE(receipt->costEmployeeTravel == 0);
     REQUIRE(receipt->costEmployerTravel == 1000);
+    REQUIRE(receipt->costTotalTravel == 1000);
     REQUIRE(receipt->costRebateEmployer == 240);
 }
 
@@ -57,7 +59,9 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithComplexConfig", "[Rece
     REQUIRE(receipt->costTotalEmployee == 550);
     REQUIRE(receipt->costEmployeeExpenses == 150);
     REQUIRE(receipt->costEmployerExpenses == 50);
+    REQUIRE(receipt->costTotalExpenses == 200);
     REQUIRE(receipt->costEmployeeTravel == 400);
     REQUIRE(receipt->costEmployerTravel == 600);
+    REQUIRE(receipt->costTotalTravel == 1000);
     REQUIRE(receipt->costRebateEmployer == 240);
 }

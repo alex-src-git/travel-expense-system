@@ -3,6 +3,7 @@
 #include "receipt-config.hpp"
 #include <ctime>
 #include <memory>
+#include <string>
 
 struct Receipt final
 {
@@ -12,9 +13,12 @@ struct Receipt final
     Money costTotalEmployee = 0.0;
     Money costEmployeeExpenses = 0.0;
     Money costEmployerExpenses = 0.0;
+    Money costTotalExpenses = 0.0;
     Money costEmployeeTravel = 0.0;
     Money costEmployerTravel = 0.0;
+    Money costTotalTravel = 0.0;
     Money costRebateEmployer = 0.0;
 };
 
 std::unique_ptr<Receipt> makeReceipt(const ClaimInput& claim, const ReceiptConfig& cfg);
+std::string stringifyReceipt(const Receipt& receipt);

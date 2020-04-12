@@ -1,5 +1,6 @@
 #include "receipt.hpp"
 #include <iostream>
+#include <sstream>
 
 typedef ClaimInput Claim;
 
@@ -67,6 +68,20 @@ static Money totalCostEmployer(const Claim& claim, const ReceiptConfig& cfg)
     return total - employeeShare;
 }
 
+static Money totalCostExpenses(const Claim& claim, const ReceiptConfig& cfg)
+{
+    const Money employee = totalCostEmployeeExpenses(claim, cfg);
+    const Money employer = totalCostEmployerExpenses(claim, cfg);
+    return employee + employer;
+}
+
+static Money totalCostTravel(const Claim& claim, const ReceiptConfig& cfg)
+{
+    const Money employee = totalCostEmployeeTravel(claim, cfg);
+    const Money employer = totalCostEmployerTravel(claim, cfg);
+    return employee + employer;
+}
+
 static Money costRebateEmployer(const Claim& claim, const ReceiptConfig& cfg)
 {
     const Money rate = cfg.rebateEmployer;
@@ -84,8 +99,32 @@ makeReceipt(const ClaimInput& claim, const ReceiptConfig& cfg)
         .costTotalEmployee = totalCostEmployee(claim, cfg),
         .costEmployeeExpenses = totalCostEmployeeExpenses(claim, cfg),
         .costEmployerExpenses = totalCostEmployerExpenses(claim, cfg),
+        .costTotalExpenses = totalCostExpenses(claim, cfg),
         .costEmployeeTravel = totalCostEmployeeTravel(claim, cfg),
         .costEmployerTravel = totalCostEmployerTravel(claim, cfg),
+        .costTotalTravel = totalCostTravel(claim, cfg),
         .costRebateEmployer = costRebateEmployer(claim, cfg)
     });
+}
+
+std::string stringifyReceipt(const Receipt& receipt)
+{
+    std::stringstream ss;
+
+    ss << std::endl << "Expenses" << std::endl;
+    ss << "Employee : " << receipt.costEmployeeExpenses << std::endl;
+    ss << "Employer : " << receipt.costEmployerExpenses << std::endl;
+    ss << "Total    : " << receipt.costTotalExpenses << std::endl;
+    
+    ss << std::endl << "Travel" << std::endl;
+    ss << "Employee : " << receipt.costEmployeeTravel << std::endl;
+    ss << "Employer : " << receipt.costEmployerTravel << std::endl;
+    ss << "Total    : " << receipt.costTotalTravel << std::endl;
+
+    ss << std::endl << "Total" << std::endl;
+    ss << "Employee : " << receipt.costTotalEmployee << std::endl;
+    ss << "Employer : " << receipt.costTotalEmployer << std::endl;
+    ss << "Total    : " << receipt.costTotal << std::endl;
+    
+    return ss.str();
 }
