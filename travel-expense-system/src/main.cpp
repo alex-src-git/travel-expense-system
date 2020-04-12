@@ -5,8 +5,8 @@
 static void addNewClaim()
 {
     ClaimInput claim = read_claim::fromUserInput();
-    std::unique_ptr<Receipt> receipt = makeReceipt(claim, {});
-    ui::writeLine(stringifyReceipt(*receipt));
+    Receipt receipt = Receipt(claim);
+    ui::writeLine(receipt);
 }
 
 static void quit()

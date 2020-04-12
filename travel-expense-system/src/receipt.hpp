@@ -1,24 +1,31 @@
 #pragma once
-#include "claim.hpp"
 #include "receipt-config.hpp"
-#include <ctime>
-#include <memory>
-#include <string>
+#include "claim.hpp"
+#include <iosfwd>
 
-struct Receipt final
+class Receipt final
 {
-    std::time_t dateTime = std::time(nullptr);
-    Money costTotal = 0.0; 
-    Money costTotalEmployer = 0.0;
-    Money costTotalEmployee = 0.0;
-    Money costEmployeeExpenses = 0.0;
-    Money costEmployerExpenses = 0.0;
-    Money costTotalExpenses = 0.0;
-    Money costEmployeeTravel = 0.0;
-    Money costEmployerTravel = 0.0;
-    Money costTotalTravel = 0.0;
-    Money costRebateEmployer = 0.0;
+public:
+    Receipt(const ClaimInput& claim);
+    Receipt(const ClaimInput& claim, const ReceiptConfig& receiptConfig);
+
+    Money getExpensesCost() const;
+    Money getExpensesCostForEmployee() const;
+    Money getExpensesCostForEmployer() const;
+
+    Money getTravelCost() const;
+    Money getTravelCostForEmployee() const;
+    Money getTravelCostForEmployer() const;
+
+    Money getTotalCost() const;
+    Money getTotalCostForEmployee() const;
+    Money getTotalCostForEmployer() const;
+
+private:
+    ReceiptConfig cfg;
+    Money expenses;
+    Money travel;
 };
 
-std::unique_ptr<Receipt> makeReceipt(const ClaimInput& claim, const ReceiptConfig& cfg);
-std::string stringifyReceipt(const Receipt& receipt);
+std::ostream& operator << (std::ostream& os, 
+    const Receipt& receipt);
