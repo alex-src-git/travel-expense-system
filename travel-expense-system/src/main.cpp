@@ -1,7 +1,8 @@
-#include <iostream>
+#include "ui.hpp"
+#include "read-claim.hpp"
 
 int main()
 {
-    std::cout << "Hello Travel Expense System" << std::endl;
+    ClaimInput claim = read_claim::fromUserInput();
     return 0;
 }

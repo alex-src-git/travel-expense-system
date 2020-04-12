@@ -46,3 +46,23 @@ Result<double> ui::readUnsignedDouble()
 
     return Result<double>::ok(input);
 }
+
+Result<unsigned int> ui::switchMenu(const std::vector<std::string>& options)
+{
+    for (std::size_t i = 0; i < options.size(); i++)
+    {
+        write(std::to_string(i + 1) + ": ");
+        writeLine(options[i]);
+    }
+
+    Result<unsigned int> input = readUint();
+    input.value -= 1;
+
+    if (input && input.value >= options.size())
+    {
+        writeError("Input out of range.");
+        input = Result<unsigned int>::fail();
+    }
+
+    return input;
+}

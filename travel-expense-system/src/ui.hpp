@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <functional>
+#include <vector>
 #include <string>
 #include "result.hpp"
 
@@ -11,10 +12,11 @@ namespace ui
     template <typename T> void writeError(T message);
 
     // TODO: Rename?
-    template <typename T> Result<T> readRecursive(const std::string& prompt, std::function<Result<T>> read);
+    template <typename T> T readRecursive(const std::string& prompt, std::function<Result<T>()> read);
     std::string readString();
     Result<unsigned int> readUint();
     Result<double> readUnsignedDouble();
+    Result<unsigned int> switchMenu(const std::vector<std::string>& options);
 
     #pragma region Template Function Definitions
 
@@ -37,7 +39,7 @@ namespace ui
     }
 
     template<typename T>
-    Result<T> readRecursive(const std::string& prompt, std::function<Result<T>> read)
+    T readRecursive(const std::string& prompt, std::function<Result<T>()> read)
     {
         while (true)
         {
