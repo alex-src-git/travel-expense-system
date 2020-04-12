@@ -11,7 +11,7 @@ static void addNewClaim()
 
 static void quit()
 {
-    ui::writeLine("Goodbye");
+    ui::writeHeading("Goodbye");
 }
 
 static void mainMenu(bool& isRunning)

@@ -5,11 +5,26 @@ Receipt::Receipt(const ClaimInput& claim) : Receipt(claim, {})
 {
 }
 
-Receipt::Receipt(const ClaimInput& claim, const ReceiptConfig& receiptConfig) : 
+Receipt::Receipt(const ClaimInput & claim, const ReceiptConfig & receiptConfig) :
+    timeCreated(time(nullptr)),
     cfg(receiptConfig),
     expenses(claim.costOfExpenses),
     travel(claim.costOfTravel)
 {
+}
+
+std::time_t Receipt::getTimeCreated() const
+{
+    return timeCreated;
+}
+
+std::string Receipt::getTimeCreatedAsUtcString() const
+{
+    #pragma warning(disable : 4996) //_CRT_SECURE_NO_WARNINGS
+    tm* time = std::gmtime(&timeCreated);
+    char* timeAsCString = std::asctime(time);
+    return std::string(timeAsCString);
+    #pragma warning(default : 4996)
 }
 
 Money Receipt::getExpensesCost() const
@@ -61,19 +76,22 @@ Money Receipt::getTotalCostForEmployer() const
     return getTravelCostForEmployer() + getExpensesCostForEmployer();
 }
 
+// TODO: Print as a table.
 std::ostream& operator << (std::ostream& os, const Receipt& receipt)
 {
-    os << std::endl << "Total    : " << receipt.getTotalCost() << std::endl;
-    os << "Employee : " << receipt.getTotalCostForEmployee() << std::endl;
-    os << "Employer : " << receipt.getTotalCostForEmployer() << std::endl;
+    os << "\nCreated  : " << receipt.getTimeCreatedAsUtcString();
 
-    os << std::endl << "Expenses : " << receipt.getExpensesCost() << std::endl;
-    os << "Employee : " << receipt.getExpensesCostForEmployee() << std::endl;
-    os << "Employer : " << receipt.getExpensesCostForEmployer() << std::endl;    
+    os << "\nTotal    : " << receipt.getTotalCost();
+    os << "\nEmployee : " << receipt.getTotalCostForEmployee();
+    os << "\nEmployer : " << receipt.getTotalCostForEmployer();
 
-    os << std::endl << "Travel   : " << receipt.getTravelCost() << std::endl;
-    os << "Employee : " << receipt.getTravelCostForEmployee() << std::endl;
-    os << "Employer : " << receipt.getTravelCostForEmployer() << std::endl;
+    os << "\n\nExpenses : " << receipt.getExpensesCost();
+    os << "\nEmployee : " << receipt.getExpensesCostForEmployee();
+    os << "\nEmployer : " << receipt.getExpensesCostForEmployer();
+
+    os << "\n\nTravel   : " << receipt.getTravelCost();
+    os << "\nEmployee : " << receipt.getTravelCostForEmployee();
+    os << "\nEmployer : " << receipt.getTravelCostForEmployer();
 
     return os;
 }

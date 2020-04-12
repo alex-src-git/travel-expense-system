@@ -9,6 +9,7 @@ namespace ui
 {
     template <typename T> void write(T message);
     template <typename T> void writeLine(T message);
+    template <typename T> void writeHeading(T message);
     template <typename T> void writeError(T message);
 
     // TODO: Rename?
@@ -33,6 +34,12 @@ namespace ui
     }
 
     template <typename T>
+    void writeHeading(T message)
+    {
+        std::cout << std::endl << message << std::endl;
+    }
+
+    template <typename T>
     void writeError(T message)
     {
         std::cout << "Error: " << message << std::endl;
@@ -43,7 +50,7 @@ namespace ui
     {
         while (true)
         {
-            writeLine(prompt);
+            writeHeading(prompt);
 
             Result<T> input = read();
             if (input)

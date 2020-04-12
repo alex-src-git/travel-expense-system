@@ -2,12 +2,17 @@
 #include "receipt-config.hpp"
 #include "claim.hpp"
 #include <iosfwd>
+#include <ctime>
+#include <string>
 
 class Receipt final
 {
 public:
     Receipt(const ClaimInput& claim);
     Receipt(const ClaimInput& claim, const ReceiptConfig& receiptConfig);
+
+    std::time_t getTimeCreated() const;
+    std::string getTimeCreatedAsUtcString() const;
 
     Money getExpensesCost() const;
     Money getExpensesCostForEmployee() const;
@@ -22,6 +27,7 @@ public:
     Money getTotalCostForEmployer() const;
 
 private:
+    std::time_t timeCreated;
     ReceiptConfig cfg;
     Money expenses;
     Money travel;
