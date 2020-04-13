@@ -3,6 +3,8 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
+travel-expense-system/receipts/
+
 #ignore vs files
 *.sln
 *.vcxproj
