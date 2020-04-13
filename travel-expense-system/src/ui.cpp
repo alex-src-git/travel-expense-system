@@ -30,7 +30,7 @@ Result<double> ui::readUnsignedDouble()
 
     try
     {
-        input = std::stoi(readString());
+        input = std::stod(readString());
     }
     catch (const std::invalid_argument&)
     {
