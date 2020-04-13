@@ -15,6 +15,16 @@ Receipt::Receipt(const ClaimInput & claim, const ReceiptConfig& receiptConfig) :
     assignId();
 }
 
+Receipt::Receipt(std::size_t id, std::time_t timeCreated, ReceiptConfig cfg,
+    Money expenses, Money travel) :
+    id(id), 
+    timeCreated(timeCreated),
+    cfg(cfg),
+    expenses(expenses),
+    travel(travel)
+{
+}
+
 std::size_t Receipt::getId() const
 {
     return id;
@@ -23,6 +33,11 @@ std::size_t Receipt::getId() const
 std::time_t Receipt::getTimeCreated() const
 {
     return timeCreated;
+}
+
+const ReceiptConfig& Receipt::getConfig() const
+{
+    return cfg;
 }
 
 std::string Receipt::getTimeCreatedAsUtcString() const

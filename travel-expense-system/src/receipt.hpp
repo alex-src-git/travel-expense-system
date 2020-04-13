@@ -1,4 +1,5 @@
 #pragma once
+
 #include "receipt-config.hpp"
 #include "claim.hpp"
 #include <iosfwd>
@@ -10,9 +11,12 @@ class Receipt final
 public:
     Receipt(const ClaimInput& claim);
     Receipt(const ClaimInput& claim, const ReceiptConfig& receiptConfig);
+    Receipt(std::size_t id, std::time_t timeCreated, ReceiptConfig cfg, 
+        Money expenses, Money travel);
 
     std::size_t getId() const;
     std::time_t getTimeCreated() const;
+    const ReceiptConfig& getConfig() const;
     std::string getTimeCreatedAsUtcString() const;
     std::string getCurrencyCode() const;
 

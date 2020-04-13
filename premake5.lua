@@ -42,7 +42,8 @@ project "tests"
     {
         -- .obj files that we want to test.
         "receipt.obj",
-        "receipt-config.obj"
+        "receipt-config.obj",
+        "receipt-reader-csv.obj"
     }
     libdirs
     {
