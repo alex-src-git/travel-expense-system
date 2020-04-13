@@ -122,10 +122,6 @@ std::ostream& operator << (std::ostream& os, const Receipt& receipt)
     os << "\nCreated  : " << receipt.getTimeCreatedAsUtcString();
     os << "\nCurrency : " << receipt.getCurrencyCode();
 
-    os << "\n\nTotal    : " << receipt.getTotalCost();
-    os << "\nEmployee : " << receipt.getTotalCostForEmployee();
-    os << "\nEmployer : " << receipt.getTotalCostForEmployer();
-
     os << "\n\nExpenses : " << receipt.getExpensesCost();
     os << "\nEmployee : " << receipt.getExpensesCostForEmployee();
     os << "\nEmployer : " << receipt.getExpensesCostForEmployer();
@@ -133,6 +129,10 @@ std::ostream& operator << (std::ostream& os, const Receipt& receipt)
     os << "\n\nTravel   : " << receipt.getTravelCost();
     os << "\nEmployee : " << receipt.getTravelCostForEmployee();
     os << "\nEmployer : " << receipt.getTravelCostForEmployer();
+
+    os << "\n\nTotal    : " << receipt.getTotalCost();
+    os << "\nEmployee : " << receipt.getTotalCostForEmployee();
+    os << "\nEmployer : " << receipt.getTotalCostForEmployer();
 
     return os;
 }
