@@ -41,7 +41,8 @@ project "tests"
     links
     {
         -- .obj files that we want to test.
-        "receipt.obj"
+        "receipt.obj",
+        "receipt-config.obj"
     }
     libdirs
     {

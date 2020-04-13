@@ -11,14 +11,7 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithSpecificationConfig", 
         .costOfExpenses = 200.0
     };
 
-    ReceiptConfig cfg = ReceiptConfig
-    {
-        .pctTravelEmployee = 0.0,
-        .pctExpensesEmployee = 1.0,
-        .bandTravelEmployee = 0.0,
-        .bandExpensesEmployee = 50.0
-    };
-
+    ReceiptConfig cfg = ReceiptConfig("Pound Sterling (GPB)", 0.0, 1.0, 0.0, 50.0);
     Receipt receipt = Receipt(claim, cfg);
 
     REQUIRE(receipt.getTotalCost() == 1200.0);
@@ -43,14 +36,7 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithComplexConfig", "[Rece
         .costOfExpenses = 200.0
     };
 
-    ReceiptConfig cfg = ReceiptConfig
-    {
-        .pctTravelEmployee = 0.5,
-        .pctExpensesEmployee = 1.0,
-        .bandTravelEmployee = 200,
-        .bandExpensesEmployee = 50.0
-    };
-
+    ReceiptConfig cfg = ReceiptConfig("Pound Sterling (GPB)", 0.5, 1.0, 200.0, 50.0);
     Receipt receipt = Receipt(claim, cfg);
 
     REQUIRE(receipt.getTotalCost() == 1200.0);

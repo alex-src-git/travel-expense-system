@@ -6,7 +6,7 @@ Receipt::Receipt(const ClaimInput& claim) : Receipt(claim, {})
 {
 }
 
-Receipt::Receipt(const ClaimInput & claim, const ReceiptConfig & receiptConfig) :
+Receipt::Receipt(const ClaimInput & claim, const ReceiptConfig& receiptConfig) :
     timeCreated(time(nullptr)),
     cfg(receiptConfig),
     expenses(claim.costOfExpenses),
@@ -40,7 +40,7 @@ std::string Receipt::getTimeCreatedAsUtcString() const
 
 std::string Receipt::getCurrencyCode() const
 {
-    return std::string(cfg.currency);
+    return std::string(cfg.getCurrency());
 }
 
 Money Receipt::getExpensesCost() const
@@ -50,8 +50,10 @@ Money Receipt::getExpensesCost() const
 
 Money Receipt::getExpensesCostForEmployee() const
 {
-    return expenses > cfg.bandExpensesEmployee
-        ? (expenses - cfg.bandExpensesEmployee) * cfg.pctExpensesEmployee
+    const Money band = cfg.getPayFreeBandEmployeeExpenses();
+    const Money share = cfg.getPctLiableEmployeeExpenses();
+    return expenses > band
+        ? (expenses - band) * share
         : 0.0;
 }
 
@@ -67,8 +69,10 @@ Money Receipt::getTravelCost() const
 
 Money Receipt::getTravelCostForEmployee() const
 {
-    return travel > cfg.bandTravelEmployee
-        ? (travel - cfg.bandTravelEmployee) * cfg.pctTravelEmployee
+    const Money band = cfg.getPayFreeBandEmployeeTravel();
+    const Money share = cfg.getPctLiableEmployeeTravel();
+    return travel > band
+        ? (travel - band) * share
         : 0.0;
 }
 
