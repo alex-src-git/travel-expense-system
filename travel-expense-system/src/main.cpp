@@ -1,10 +1,12 @@
 #include "ui.hpp"
 #include "read-claim.hpp"
 #include "receipt.hpp"
+#include "persistence/receipt-writer-csv.hpp"
 
 static void saveReceipt(const Receipt& receipt)
 {
-    
+    persistence::ReceiptWriterCsv writer;
+    writer.save(receipt);
 }
 
 static void addNewClaim()
