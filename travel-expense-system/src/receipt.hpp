@@ -29,6 +29,9 @@ public:
     Money getTotalCostForEmployer() const;
 
 private:
+    std::size_t getHashOfMemoryAddress(); const
+    std::size_t getHashOfTimeString() const;
+    std::size_t getHashOfCost() const;
     void assignId();
 
     std::size_t id;

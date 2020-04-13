@@ -92,10 +92,27 @@ Money Receipt::getTotalCostForEmployer() const
     return getTravelCostForEmployer() + getExpensesCostForEmployer();
 }
 
-void Receipt::assignId()
+std::size_t Receipt::getHashOfMemoryAddress()
+{
+    auto uintPtr = (std::uintptr_t)std::addressof(*this);
+    return std::hash<std::uintptr_t>{}(uintPtr);
+}
+
+const std::size_t Receipt::getHashOfTimeString() const
 {
     std::string timeString = getTimeCreatedAsUtcString();
-    id = std::hash<std::string >{}(timeString);
+    return std::hash<std::string>{}(timeString);
+}
+
+std::size_t Receipt::getHashOfCost() const
+{
+    Money total = expenses + travel;
+    return std::hash<Money>{}(total);
+}
+
+void Receipt::assignId()
+{
+    id = getHashOfMemoryAddress() ^ getHashOfTimeString() ^ getHashOfCost();
 }
 
 // TODO: Print as a table.

@@ -1,5 +1,6 @@
 #include <receipt.hpp>
 #include <catch2/catch.hpp>
+#include <thread>
 
 TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithSpecificationConfig", "[Receipt]")
 {
@@ -63,4 +64,12 @@ TEST_CASE("makeReceiptCorrectlyCalculatesReceiptValuesWithComplexConfig", "[Rece
     REQUIRE(receipt.getTravelCostForEmployee() == 400);
     REQUIRE(receipt.getTravelCostForEmployer() == 600);
     REQUIRE(receipt.getTravelCost() == 1000);
+}
+
+TEST_CASE("makeReceiptAssignsAnAcceptablyUniqueID", "[Receipt]")
+{
+    Receipt lhs = Receipt({});
+    Receipt rhs = Receipt({});
+    
+    REQUIRE(lhs.getId() != rhs.getId());
 }
