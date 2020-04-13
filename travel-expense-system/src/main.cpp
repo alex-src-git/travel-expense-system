@@ -2,11 +2,21 @@
 #include "read-claim.hpp"
 #include "receipt.hpp"
 
+static void saveReceipt(const Receipt& receipt)
+{
+    
+}
+
 static void addNewClaim()
 {
     ClaimInput claim = read_claim::fromUserInput();
     Receipt receipt = Receipt(claim);
     ui::writeLine(receipt);
+    
+    if (ui::readRecursive<bool>("Would you like to save this receipt? (y/n)", ui::readBool))
+    {
+        saveReceipt(receipt);
+    }
 }
 
 static void quit()

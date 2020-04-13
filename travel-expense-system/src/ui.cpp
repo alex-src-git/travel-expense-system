@@ -47,6 +47,19 @@ Result<double> ui::readUnsignedDouble()
     return Result<double>::ok(input);
 }
 
+Result<bool> ui::readBool()
+{
+    std::string line = readString();
+    char firstChar = std::tolower(line[0]);
+    if (line.length() != 1 || !(firstChar == 'y' || firstChar == 'n'))
+    {
+        writeError("Input must be either y or n.");
+        return Result<bool>::fail();
+    }
+
+    return Result<bool>::ok(firstChar == 'y');
+}
+
 Result<unsigned int> ui::switchMenu(const std::vector<std::string>& options)
 {
     for (std::size_t i = 0; i < options.size(); i++)

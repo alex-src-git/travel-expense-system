@@ -17,6 +17,7 @@ namespace ui
     std::string readString();
     Result<unsigned int> readUint();
     Result<double> readUnsignedDouble();
+    Result<bool> readBool();
     Result<unsigned int> switchMenu(const std::vector<std::string>& options);
 
     #pragma region Template Function Definitions
