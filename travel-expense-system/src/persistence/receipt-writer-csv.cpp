@@ -34,17 +34,17 @@ std::string ReceiptWriterCsv::toCsv(const Receipt& receipt)
 {
     std::stringstream ss;
     const ReceiptConfig& receiptConfig = receipt.getConfig();
-    
-    // TODO: Reorder...
-    ss << receipt.getId() << ',';
-    ss << receipt.getTimeCreated() << ',';
-    ss << receipt.getExpensesCost() << ',';
-    ss << receipt.getTravelCost() << ',';
-    ss << receiptConfig.getCurrency() << ',';
-    ss << receiptConfig.getPctLiableEmployeeTravel() << ',';
-    ss << receiptConfig.getPctLiableEmployeeExpenses() << ',';
-    ss << receiptConfig.getPayFreeBandEmployeeTravel() << ',';
-    ss << receiptConfig.getPayFreeBandEmployeeExpenses() << ',';
+
+    auto append = [&](auto value) { ss << value << ','; };
+
+    append(receipt.getId());
+    append(receipt.getTimeCreated());
+    append(receipt.getExpensesCost());
+    append(receipt.getTravelCost());
+    append(receiptConfig.getCurrency());
+    append(receiptConfig.getPctLiableEmployeeTravel());
+    append(receiptConfig.getPctLiableEmployeeExpenses());
+    append(receiptConfig.getPayFreeBandEmployeeExpenses());
 
     return ss.str();
 }
