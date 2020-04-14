@@ -91,7 +91,7 @@ void ui::setTextColour(Colour colour)
     // No-op on other operating systems.
     #if _WIN32
 
-    long win32ColourFlag = 0;
+    unsigned short win32ColourFlag = 0;
 
     switch (colour)
     {
