@@ -33,10 +33,10 @@ std::string ReceiptWriterCsv::toCsv(const Receipt& receipt)
     ss << receipt.getId() << ',';
     ss << receipt.getTimeCreated() << ',';
     ss << receiptConfig.getCurrency() << ',';
-    ss << receiptConfig.getPayFreeBandEmployeeTravel() << ',';
-    ss << receiptConfig.getPayFreeBandEmployeeExpenses() << ',';
     ss << receiptConfig.getPctLiableEmployeeTravel() << ',';
     ss << receiptConfig.getPctLiableEmployeeExpenses() << ',';
+    ss << receiptConfig.getPayFreeBandEmployeeTravel() << ',';
+    ss << receiptConfig.getPayFreeBandEmployeeExpenses() << ',';
     ss << receipt.getExpensesCost() << ',';
     ss << receipt.getTravelCost() << ',';
 

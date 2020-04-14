@@ -21,7 +21,7 @@ std::vector<std::unique_ptr<Receipt>> ReceiptReaderCsv::loadAll()
 {
     std::vector<std::unique_ptr<Receipt>> receipts;
 
-    for (const auto& entry : fs::directory_iterator(""))
+    for (const auto& entry : fs::directory_iterator("Receipts"))
     {
         const fs::path path = entry.path();
         if (path.extension() == ".csv")
