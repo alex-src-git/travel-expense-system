@@ -8,9 +8,15 @@
 using namespace persistence;
 namespace fs = std::filesystem;
 
+static std::string hexFormat(std::size_t value)
+{
+    std::stringstream ss;
+    ss << std::hex << value;
+    return ss.str();
+}
+
 void ReceiptWriterCsv::save(const Receipt& receipt)
 {
-    
     std::string fileName = makeFileName(receipt);
     std::string csv = toCsv(receipt);
     writeToFile(fileName, csv);
@@ -20,7 +26,7 @@ std::string ReceiptWriterCsv::makeFileName(const Receipt& receipt)
 {
     std::string directory = "receipts\\";
     fs::create_directory(directory);
-    std::string name = std::to_string(receipt.getId());
+    std::string name = hexFormat(receipt.getId());
     return directory + name + ".csv";
 }
 
