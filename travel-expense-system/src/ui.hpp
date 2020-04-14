@@ -20,6 +20,14 @@ namespace ui
     Result<bool> readBool();
     Result<unsigned int> switchMenu(const std::vector<std::string>& options);
 
+    enum class Colour
+    {
+        White,
+        Red
+    };
+
+    void setTextColour(Colour colour);
+
     #pragma region Template Function Definitions
 
     template <typename T>
@@ -43,7 +51,9 @@ namespace ui
     template <typename T>
     void writeError(T message)
     {
+        setTextColour(ui::Colour::Red);
         std::cout << "Error: " << message << std::endl;
+        setTextColour(ui::Colour::White);
     }
 
     template<typename T>

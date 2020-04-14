@@ -1,5 +1,10 @@
 #include "ui.hpp"
 
+#ifdef _WIN32
+    // We need to use Windows platform code to change text colour.
+    #include <windows.h>
+#endif
+
 std::string ui::readString()
 {
     std::string string;
@@ -78,4 +83,28 @@ Result<unsigned int> ui::switchMenu(const std::vector<std::string>& options)
     }
 
     return input;
+}
+
+void ui::setTextColour(Colour colour)
+{
+    // The changing of console text colour is only supported on Windows.
+    // No-op on other operating systems.
+    #if _WIN32
+
+    long win32ColourFlag = 0;
+
+    switch (colour)
+    {
+        case Colour::White:
+            win32ColourFlag = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+            break;
+
+        case Colour::Red:
+            win32ColourFlag = FOREGROUND_RED;
+    }
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE),
+        win32ColourFlag);
+
+    #endif
 }
