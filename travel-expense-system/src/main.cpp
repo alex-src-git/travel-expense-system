@@ -67,18 +67,18 @@ static void quit()
     ui::writeHeading("Goodbye");
 }
 
-static void viewReceiptsMenu()
+static void queryReceiptsMenu()
 {
     persistence::ReceiptReaderCsv reader;
     auto receipts = reader.loadAll();
     writeReceiptCount(receipts);
 
-    static const std::vector<std::string> options{ "Get largest payment", "Quit to main menu" };
+    static const std::vector<std::string> options{ "Print largest payment", "Quit to main menu" };
     auto optionSelector = std::bind(ui::switchMenu, options);
 
     while (true)
     {
-        switch (ui::readRecursive<unsigned int>("Receipt Viewer", optionSelector))
+        switch (ui::readRecursive<unsigned int>("Query Receipts", optionSelector))
         {
             case 0:
             {
@@ -97,7 +97,7 @@ static void viewReceiptsMenu()
 
 static void mainMenu(bool& isRunning)
 {
-    static const std::vector<std::string> options{ "Add a new claim", "View receipts", "Quit" };
+    static const std::vector<std::string> options{ "Add a new claim", "Query Receipts", "Quit" };
     auto optionSelector = std::bind(ui::switchMenu, options);
     
     switch (ui::readRecursive<unsigned int>("Travel Expense System", optionSelector))
@@ -109,7 +109,7 @@ static void mainMenu(bool& isRunning)
         }
         case 1:
         {
-            viewReceiptsMenu();
+            queryReceiptsMenu();
             break;
         }
         case 2:
