@@ -10,23 +10,18 @@ workspace "travel-expense-system"
     kind "ConsoleApp"
     targetdir (TARGET_DIR)
     objdir (OBJECT_DIR)
-
-project "travel-expense-system"
-    location "travel-expense-system"
-    files
-    {
-        "%{prj.name}/src/**.hpp",
-        "%{prj.name}/src/**.cpp",
-    }
-
-project "tests"
-    location "tests"
     files
     {
         "%{prj.name}/src/**.hpp",
         "%{prj.name}/src/**.cpp",
         "%{prj.name}/thirdparty/**.hpp"
     }
+
+project "travel-expense-system"
+    location "travel-expense-system"
+    
+project "tests"
+    location "tests"
     includedirs
     {
         "travel-expense-system/src",
