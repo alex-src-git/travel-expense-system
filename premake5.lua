@@ -4,15 +4,15 @@ OBJECT_DIR = TARGET_DIR .. "/obj"
 workspace "travel-expense-system"
     architecture "x64"
     configurations { "debug", "release" }
-
-project "travel-expense-system"
-    location "travel-expense-system"
     systemversion "latest"
     cppdialect "C++latest"
     staticruntime "Off"
     kind "ConsoleApp"
     targetdir (TARGET_DIR)
     objdir (OBJECT_DIR)
+
+project "travel-expense-system"
+    location "travel-expense-system"
     files
     {
         "%{prj.name}/src/**.hpp",
@@ -21,12 +21,6 @@ project "travel-expense-system"
 
 project "tests"
     location "tests"
-    systemversion "latest"
-    cppdialect "C++latest"
-    staticruntime "Off"
-    kind "ConsoleApp"
-    targetdir (TARGET_DIR)
-    objdir (OBJECT_DIR)
     files
     {
         "%{prj.name}/src/**.hpp",
