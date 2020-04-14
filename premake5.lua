@@ -19,6 +19,10 @@ workspace "travel-expense-system"
 
 project "travel-expense-system"
     location "travel-expense-system"
+    defines
+    {
+        "_CRT_SECURE_NO_WARNINGS"
+    }
     
 project "tests"
     location "tests"
