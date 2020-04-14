@@ -32,13 +32,13 @@ std::string ReceiptWriterCsv::toCsv(const Receipt& receipt)
     // TODO: Reorder...
     ss << receipt.getId() << ',';
     ss << receipt.getTimeCreated() << ',';
+    ss << receipt.getExpensesCost() << ',';
+    ss << receipt.getTravelCost() << ',';
     ss << receiptConfig.getCurrency() << ',';
     ss << receiptConfig.getPctLiableEmployeeTravel() << ',';
     ss << receiptConfig.getPctLiableEmployeeExpenses() << ',';
     ss << receiptConfig.getPayFreeBandEmployeeTravel() << ',';
     ss << receiptConfig.getPayFreeBandEmployeeExpenses() << ',';
-    ss << receipt.getExpensesCost() << ',';
-    ss << receipt.getTravelCost() << ',';
 
     return ss.str();
 }

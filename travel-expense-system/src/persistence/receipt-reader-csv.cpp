@@ -78,20 +78,19 @@ std::unique_ptr<ReceiptConfig> ReceiptReaderCsv::readConfig(const std::vector<st
 
     static constexpr char* scanToEndOfString = "%s";
     char currency[256];
-    std::sscanf(tokens[2].c_str(), "%[^\n]", &currency);
-
+    std::sscanf(tokens[4].c_str(), "%[^\n]", &currency);
 
     double pctLiableEmployeeTravel;
-    std::sscanf(tokens[3].c_str(), "%lf", &pctLiableEmployeeTravel);
+    std::sscanf(tokens[5].c_str(), "%lf", &pctLiableEmployeeTravel);
 
     double pctLiableEmployeeExpenses;
-    std::sscanf(tokens[4].c_str(), "%lf", &pctLiableEmployeeExpenses);
+    std::sscanf(tokens[6].c_str(), "%lf", &pctLiableEmployeeExpenses);
 
     double payFreeBandEmployeeTravel;
-    std::sscanf(tokens[5].c_str(), "%lf", &payFreeBandEmployeeTravel);
+    std::sscanf(tokens[7].c_str(), "%lf", &payFreeBandEmployeeTravel);
 
     double payFreeBandEmployeeExpenses;
-    std::sscanf(tokens[6].c_str(), "%lf", &payFreeBandEmployeeExpenses);
+    std::sscanf(tokens[8].c_str(), "%lf", &payFreeBandEmployeeExpenses);
 
     return std::make_unique<ReceiptConfig>(
         std::string(currency),
@@ -114,14 +113,11 @@ std::unique_ptr<Receipt> ReceiptReaderCsv::readReceipt(const std::vector<std::st
     std::time_t timeCreated;
     std::sscanf(tokens[1].c_str(), "%lld", &timeCreated);
 
-    // ReceiptConfig's members occupy tokens [2..6]
-    // It should probably be serialised separately, think: the "Flyweight Pattern".
-
     double expenses;
-    std::sscanf(tokens[7].c_str(), "%lf", &expenses);
+    std::sscanf(tokens[2].c_str(), "%lf", &expenses);
 
     double travel;
-    std::sscanf(tokens[8].c_str(), "%lf", &travel);
+    std::sscanf(tokens[3].c_str(), "%lf", &travel);
 
     return std::make_unique<Receipt>(
         id,
