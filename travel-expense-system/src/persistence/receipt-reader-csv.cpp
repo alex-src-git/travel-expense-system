@@ -8,6 +8,13 @@
 using namespace persistence;
 namespace fs = std::filesystem;
 
+static constexpr char* directoryName = "receipts";
+
+ReceiptReaderCsv::ReceiptReaderCsv()
+{
+    ensureThatDirectoryExists(directoryName);
+}
+
 std::unique_ptr<Receipt> ReceiptReaderCsv::load(const std::string& fileName)
 {
     std::vector<std::string> tokens = readTokens(fileName);
@@ -21,7 +28,7 @@ std::vector<std::unique_ptr<Receipt>> ReceiptReaderCsv::loadAll()
 {
     std::vector<std::unique_ptr<Receipt>> receipts;
 
-    for (const auto& entry : fs::directory_iterator("Receipts"))
+    for (const auto& entry : fs::directory_iterator(directoryName))
     {
         const fs::path path = entry.path();
         if (path.extension() == ".csv")
@@ -67,6 +74,11 @@ std::vector<std::string> persistence::ReceiptReaderCsv::readTokens(const std::st
     
     // HACK: Potentially hefty copy operation.
     return tokens;
+}
+
+void ReceiptReaderCsv::ensureThatDirectoryExists(const std::string& name)
+{
+    fs::create_directory(name);
 }
 
 std::unique_ptr<ReceiptConfig> ReceiptReaderCsv::readConfig(const std::vector<std::string>& tokens)

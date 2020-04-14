@@ -71,7 +71,13 @@ static void queryReceiptsMenu()
 {
     persistence::ReceiptReaderCsv reader;
     auto receipts = reader.loadAll();
+    
     writeReceiptCount(receipts);
+    
+    if (receipts.size() == 0)
+    {
+        return;
+    }
 
     static const std::vector<std::string> options{ "Print largest payment", "Quit to main menu" };
     auto optionSelector = std::bind(ui::switchMenu, options);
