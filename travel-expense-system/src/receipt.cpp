@@ -134,24 +134,26 @@ void Receipt::assignId()
     id = getHashOfMemoryAddress() ^ getHashOfTimeString() ^ getHashOfCost();
 }
 
-// TODO: Print as a table.
 std::ostream& operator << (std::ostream& os, const Receipt& receipt)
 {
     os << "\nID Hash  : " << std::hex << receipt.getId();
     os << "\nCreated  : " << receipt.getTimeCreatedAsUtcString();
     os << "\nCurrency : " << receipt.getCurrencyCode();
 
-    os << "\n\nExpenses : " << receipt.getExpensesCost();
+    os << "\n\nExpenses";
     os << "\nEmployee : " << receipt.getExpensesCostForEmployee();
     os << "\nEmployer : " << receipt.getExpensesCostForEmployer();
+    os << "\nTotal    : " << receipt.getExpensesCost();
 
-    os << "\n\nTravel   : " << receipt.getTravelCost();
+    os << "\n\nTravel";
     os << "\nEmployee : " << receipt.getTravelCostForEmployee();
     os << "\nEmployer : " << receipt.getTravelCostForEmployer();
+    os << "\nTotal    : " << receipt.getTravelCost();
 
-    os << "\n\nTotal    : " << receipt.getTotalCost();
+    os << "\n\nTotals";
     os << "\nEmployee : " << receipt.getTotalCostForEmployee();
     os << "\nEmployer : " << receipt.getTotalCostForEmployer();
+    os << "\nTotal    : " << receipt.getTotalCost();
 
     return os;
 }
