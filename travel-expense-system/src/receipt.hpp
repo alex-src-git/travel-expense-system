@@ -38,6 +38,10 @@ private:
     std::size_t getHashOfCost() const;
     void assignId();
 
+    // This id is constructed out of combined the hash codes of
+    // 1. The instance's location in memory (i.e. (intptr)this).
+    // 2. A time string.
+    // 3. Cost of expenses + cost of travel.
     std::size_t id;
     std::time_t timeCreated;
     ReceiptConfig cfg;
@@ -45,5 +49,7 @@ private:
     Money travel;
 };
 
+// This allows us to print receipt info via std::cout as if it
+// was a built-in type.
 std::ostream& operator << (std::ostream& os, 
     const Receipt& receipt);

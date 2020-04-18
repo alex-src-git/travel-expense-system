@@ -1,5 +1,7 @@
 #pragma once
 
+// Wraps a success flag along with a value of type T.
+// Implicitly convertable to a boolean value.
 template <typename T> 
 struct Result final
 {

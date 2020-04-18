@@ -12,7 +12,7 @@ namespace ui
     template <typename T> void writeHeading(T message);
     template <typename T> void writeError(T message);
 
-    // TODO: Rename?
+    // Attempt to read input from the console until that input has been validated.
     template <typename T> T readRecursive(const std::string& prompt, std::function<Result<T>()> read);
     std::string readString();
     Result<unsigned int> readUint();
