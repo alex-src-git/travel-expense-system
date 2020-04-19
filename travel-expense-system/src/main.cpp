@@ -1,6 +1,7 @@
 #include "ui.hpp"
 #include "read-claim.hpp"
 #include "receipt.hpp"
+#include "receipt-queries.hpp"
 #include "persistence/receipt-writer-csv.hpp"
 #include "persistence/receipt-reader-csv.hpp"
 
@@ -37,29 +38,18 @@ static void writeReceiptCount(const ReceiptVector& receipts)
     }
 }
 
-static Receipt* getLargestPayment(const ReceiptVector& receipts)
-{
-    Money largestCost = 0;
-    std::size_t indexOfLargest = 0;
-    
-    for (std::size_t i = 0; i < receipts.size(); i++)
-    {
-        // FIXME: What if multiple receipts have the same total cost?
-        const Money cost = receipts[i]->getTotalCost();
-        if (cost > largestCost)
-        {
-            largestCost = cost;
-            indexOfLargest = i;
-        }
-    }
-
-    return receipts[indexOfLargest].get();
-}
-
 static void writeLargestPayments(const Receipt& receipt)
 {
     ui::writeHeading("Largest payment");
     ui::writeLine(receipt);
+}
+
+static void writeAveragePayments(Money averageTravel, Money averageExpenses)
+{
+    ui::writeHeading("Averages payments");
+    ui::writeLine("Travel   : " + std::to_string(averageTravel));
+    ui::writeLine("Expenses : " + std::to_string(averageExpenses));
+    ui::writeLine("Total    : " + std::to_string(averageTravel + averageExpenses));
 }
 
 static void quit()
@@ -79,7 +69,7 @@ static void queryReceiptsMenu()
         return;
     }
 
-    static const std::vector<std::string> options{ "Print largest payment", "Quit to main menu" };
+    static const std::vector<std::string> options{ "Print largest payment", "Print average payments", "Quit to main menu" };
     auto optionSelector = std::bind(ui::switchMenu, options);
 
     while (true)
@@ -89,11 +79,18 @@ static void queryReceiptsMenu()
             case 0:
             {
                 // We don't need to `delete` this pointer because its lifetime is managed by `std::unique_ptr`.
-                Receipt* largestPayment = getLargestPayment(receipts);
+                Receipt* largestPayment = receipt_queries::getLargestPayment(receipts);
                 writeLargestPayments(*largestPayment);
                 break;
             }
             case 1:
+            {
+                Money averageTravel = receipt_queries::getAverageCostOfTravel(receipts);
+                Money averageExpenses = receipt_queries::getAverageCostOfExpenses(receipts);
+                writeAveragePayments(averageTravel, averageExpenses);
+                break;
+            }
+            case 2:
             {
                 return;
             }

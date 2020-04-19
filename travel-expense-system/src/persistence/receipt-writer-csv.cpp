@@ -44,6 +44,7 @@ std::string ReceiptWriterCsv::toCsv(const Receipt& receipt)
     append(receiptConfig.getCurrency());
     append(receiptConfig.getPctLiableEmployeeTravel());
     append(receiptConfig.getPctLiableEmployeeExpenses());
+    append(receiptConfig.getPayFreeBandEmployeeTravel());
     append(receiptConfig.getPayFreeBandEmployeeExpenses());
 
     return ss.str();
